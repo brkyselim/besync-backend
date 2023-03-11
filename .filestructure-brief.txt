@@ -1,0 +1,125 @@
+Bir proje geliştiriyorum. Geliştirdiğim yazılım projesini python ile yazacağım ve FastAPI kullanacağım. 3.rd Party servisler ile haberleşebilecek bir backend uygulaması. Başka yerlere verip, aldığı veriler ile endpointleri vasıtası ile frontend uygulamamızı besleyecek.
+Yapması gereken temel işler şunlar:
+1. verilen yazıyı özgünleştirmek.
+2. yeni içerik üretmek.
+3. lisans kodu üretip bunu kontrol etmek.
+4. lisans koduna ve istek atan sitenin domainine göre jwt üretmek.
+5. Bazı verileri PostgreSQL veritabanımıza yazmak.
+6. Kullanıcıların kotalarını kontrol etmek.
+
+Ek olarak:
+Bu uygulama 3.rd Party uygulamaların da entegrasyonunu içerecek. Birden fazla uygulamanın entegrasyonu olabilir. Hepsine API ve secretları kullanarak bağlacağız.
+
+Gibi görevleri var. Bu python uygulamasının klasör yapısı nasıl olmalı? Temiz bir yapı istiyorum. Best practice'e ihtiyacım var. Listelediğin her klasörün yanına görevini ve ne işe yarayacağını da ekler misin?
+
+
+besync-backend/
+├── app/
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── endpoints/
+│   │   │   ├── __init__.py
+│   │   │   ├── articles.py
+│   │   │   └── users.py
+│   │   ├── dependencies/
+│   │   │   ├── __init__.py
+│   │   │   ├── auth.py
+│   │   │   ├── database.py
+│   │   │   └── security.py
+│   │   └── schemas/
+│   │       ├── __init__.py
+│   │       ├── article.py
+│   │       └── user.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   └── security.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── article.py
+│   │   └── user.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── article_operations.py
+│   │   ├── license_operations.py
+│   │   ├── usage_operations.py
+│   │   └── job_operations.py
+│   └── utils/
+│       ├── __init__.py
+│       └── logger.py
+├── tests/
+│   ├── __init__.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   └── ...
+│   └── services/
+│       ├── __init__.py
+│       └── ...
+├── .env
+├── .gitignore
+├── main.py
+├── requirements.txt
+└── README.md
+
+
+Exploination:
+app: This is the main directory of the application. It contains all the code related to the app itself.
+api: This directory contains all the code related to the API.
+endpoints: This directory contains all the API endpoint functions, organized by resource (e.g. articles, users).
+dependencies: This directory contains all the dependency injection functions used in the API, such as authentication, database connection, and security.
+schemas: This directory contains all the Pydantic models used to validate incoming and outgoing data in the API.
+core: This directory contains all the core code of the application, such as configuration and database setup.
+models: This directory contains all the database models, defined using SQLAlchemy.
+services: This directory contains all the functions that interact with the database, organized by resource (e.g. articles, users).
+utils: This directory contains all the utility functions used throughout the application, such as logging.
+tests: This directory contains all the tests for the application, organized by resource (e.g. articles, users).
+.env: This file contains environment variables that are used to configure the application.
+.gitignore: This file specifies files and directories that should be ignored by Git.
+main.py: This is the entry point of the application.
+requirements.txt: This file contains all the Python dependencies needed to run the application.
+README.md: This file contains documentation for the application.
+
+
+my_project/
+├── app/
+│   ├── __init__.py
+│   ├── endpoints/
+│   │   ├── __init__.py
+│   │   ├── articles.py
+│   │   └── users.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── article.py
+│   │   └── user.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── article_operations.py
+│   │   ├── license_operations.py
+│   │   ├── usage_operations.py
+│   │   └── job_operations.py
+│   ├── dependencies/
+│   │   ├── __init__.py
+│   │   ├── auth.py
+│   │   ├── database.py
+│   │   └── security.py
+│   └── utils/
+│       ├── __init__.py
+│       └── logger.py
+├── tests/
+│   ├── __init__.py
+│   ├── endpoints/
+│   │   ├── __init__.py
+│   │   ├── test_articles.py
+│   │   └── test_users.py
+│   └── services/
+│       ├── __init__.py
+│       ├── test_article_operations.py
+│       ├── test_license_operations.py
+│       ├── test_usage_operations.py
+│       └── test_job_operations.py
+├── .env
+├── .gitignore
+├── main.py
+├── requirements.txt
+└── README.md
